@@ -1,29 +1,31 @@
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import Home from "./page";
+import { expect, test, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import Home from './page.tsx'
 
-describe("Home Page", () => {
-  it("deve renderizar o título principal", () => {
-    render(<Home />);
-    const heading = screen.getByText(/To get started, edit the page.tsx file/i);
-    expect(heading).toBeInTheDocument();
-  });
+// Mock next/image as it requires a running Next.js server for optimization
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: any) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img {...props} />
+  },
+}))
 
-  it("deve renderizar o logo do Next.js", () => {
-    render(<Home />);
-    const logo = screen.getByAltText(/Next.js logo/i);
-    expect(logo).toBeInTheDocument();
-  });
+test('Home page renders the logo, heading, and main links', () => {
+  render(<Home />)
 
-  it("deve conter o link para templates com a URL correta", () => {
-    render(<Home />);
-    const link = screen.getByRole("link", { name: /Templates/i });
-    expect(link).toHaveAttribute("href", expect.stringContaining("vercel.com/templates"));
-  });
+  // Verify the Next.js logo is present
+  const logo = screen.getByAltText('Next.js logo')
+  expect(logo).toBeDefined()
 
-  it("deve renderizar o link de Documentação", () => {
-    render(<Home />);
-    const link = screen.getByRole("link", { name: /Documentation/i });
-    expect(link).toHaveAttribute("href", expect.stringContaining("nextjs.org/docs"));
-  });
-});
+  // Verify the main heading text
+  const heading = screen.getByRole('heading', { level: 1 })
+  expect(heading.textContent).toContain('To get started, edit the page.tsx file.')
+
+  // Verify the primary Call-to-Action links are rendered
+  expect(screen.getByRole('link', { name: /deploy now/i })).toBeDefined()
+  expect(screen.getByRole('link', { name: /documentation/i })).toBeDefined()
+  
+  // Verify the links have the correct destinations
+  expect(screen.getByRole('link', { name: /learning/i })).toHaveAttribute('href', expect.stringContaining('nextjs.org/learn'))
+})
