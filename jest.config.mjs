@@ -13,6 +13,19 @@ const config = {
     // Lida com os aliases de importação (se você usa @/...)
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  // Agora o Jest procura testes em qualquer lugar dentro de src/ (features, app, components, etc)
+  testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'
+  ],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/app/layout.tsx', // Geralmente ignoramos layouts raiz por serem apenas wrappers
+    '!src/**/types/**',    // Ignorar pastas de tipos
+    '!src/**/*.d.ts',      // Ignorar definições de tipos
+  ],
+  coverageReporters: ['text', 'lcov', 'html'],
 }
 
 export default createJestConfig(config)
