@@ -34,3 +34,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Cypress
+
+npx cypress open
+
+## Test 
+
+### Tailwind
+screen.getByText(...).should('have.class', 'bg-blue-500').
+
+### Run Test 
+npm test.
+
+### Run  
+npm run dev
+
+# Projct Structure
+
+The project follows a feature-based architecture pattern.
+
+Each feature encapsulates its own:
+- components
+- services
+- interfaces
+- mocks
+- hooks
+- tests
+
+This approach improves:
+- scalability
+- maintainability
+- separation of concerns
+- code discoverability
+
+Global and shared resources remain in dedicated folders such as:
+- `components`
+- `lib`
+- `services`
+- `utils`
+- `interfaces`
