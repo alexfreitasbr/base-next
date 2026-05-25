@@ -1,31 +1,29 @@
-import { api} from '@/services/axios/intercept';
-import { PockemonData } from '../services/interfaces/pokemon.interface';
-
 import { useEffect, useState } from 'react';
 
-interface UseUsersProps {
-  offset?: number;
-  limit?: number;
+interface UseFetchProps<T> {
+  request: () => Promise<T>;
+  dependencies?: unknown[];
 }
 
-export const usePockemon = ({
-  offset = 0,
-  limit = 20,
-}: UseUsersProps = {}) => {
-  const [data, setData] = useState<PockemonData | null>(null);
+export function useFetch<T>({
+  request,
+  dependencies = [],
+}: UseFetchProps<T>) {
+  const [data, setData] = useState<T | null>(null);
+
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const [error, setError] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     setLoading(true);
     setError(null);
 
-    api
-      .get<PockemonData []>(
-        `/pokemon?offset=${offset}&limit=${limit}`
-      )
-      .then((resp) => {
-        setData(resp);
+    request()
+      .then((response) => {
+        setData(response);
       })
       .catch((err) => {
         setError(err.message);
@@ -33,11 +31,11 @@ export const usePockemon = ({
       .finally(() => {
         setLoading(false);
       });
-  }, [offset, limit]);
+  }, dependencies);
 
   return {
     data,
     loading,
     error,
   };
-};
+}

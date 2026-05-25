@@ -1,23 +1,36 @@
 "use client"
 
-import { Pockemon } from '@/services/interfaces/pokemon.interface';
-import { usePockemon  } from '@/hooks/useFetch'
+import { useFetch } from '@/hooks/useFetch';
+import { getPockemon } from '@/services/pokemon/getPockemon';
+
 
 export default function UsersPage() {
-  const { data, error, loading } = usePockemon();
-  if (loading) return <p className="p-4">Carregando pokémons...</p>;
-  if (error) return <p className="p-4 text-red-500">Erro: {error}</p>;
+ const { data, loading, error } = useFetch({
+    request: () => getPockemon(0, 20),
+    dependencies: [],
+  });
 
-  const pokemons: Pockemon[] = data?.results || [];
+  const pockmonList = data?.data.results;
+
+
+  console.log(pockmonList)
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <main className="p-4">
       <h1 className="text-xl font-bold text-red-500">Usuários</h1>
       <ul>
-        {pokemons.map((pokemon) => (
-          <li key={pokemon.name} className="capitalize"> 
-            <p>{pokemon.name} </p>
-            <p>{pokemon.url} </p>
+        {pockmonList?.map((pockemon) => (
+          <li key={pockemon.name} className="capitalize"> 
+            <p>{pockemon.name} </p>
+            <p>{pockemon.url} </p>
           </li>
         ))}
       </ul>

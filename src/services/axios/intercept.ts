@@ -1,16 +1,15 @@
-import {apiPokemon} from '@/services/axios/apiPokemon'
+import { api } from './api';
 
-export const api = apiPokemon
 api.interceptors.response.use(
   (response) => {
     return response.data;
   },
   (error) => {
-    console.error('API ERROR:', error);
+    console.error(error);
 
     if (!error.response) {
       return Promise.reject(
-        new Error('Sem conexão com o servidor')
+        new Error('Servidor indisponível')
       );
     }
 
@@ -22,7 +21,7 @@ api.interceptors.response.use(
 
       case 500:
         return Promise.reject(
-          new Error('Erro interno do servidor')
+          new Error('Erro interno')
         );
 
       default:
