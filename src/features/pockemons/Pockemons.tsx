@@ -9,11 +9,15 @@ import { Pockemon } from "@/interfaces/pockemon.interface";
 export function Pockemons() {
   const dispatch = useAppDispatch();
 
-  const { data, loading, error } =
-    useAppSelector(selectPockemons);
+  const { data, loading, error } = useAppSelector(selectPockemons);
 
   useEffect(() => {
-    dispatch(getAllPockemons());
+    dispatch(
+      getAllPockemons({
+        offset: 20,
+        limit: 10,
+      }),
+    );
   }, [dispatch]);
 
   return (
@@ -22,11 +26,8 @@ export function Pockemons() {
 
       {error && <p>{error}</p>}
 
-      {data?.results.map((pockemon:Pockemon) => (
-        <li
-          key={pockemon.name}
-          className="capitalize"
-        >
+      {data?.results.map((pockemon: Pockemon) => (
+        <li key={pockemon.name} className="capitalize">
           <p>{pockemon.name}</p>
           <p>{pockemon.url}</p>
         </li>
