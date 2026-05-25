@@ -1,10 +1,10 @@
 'use client'
 
-import { selectCounterValue } from './pockmonsSelector'
+import { selectCounterValue } from '../../stores/pockmons/slice/pockmonsSelector'
 import {
   decrement,
   increment
-} from './pockmonsSlice'
+} from '../../stores/pockmons/slice/pockmonsSlice'
 
 import { useAppDispatch, useAppSelector } from '@/stores/pockmons/hooks'
 
