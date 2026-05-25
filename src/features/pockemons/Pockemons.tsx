@@ -1,22 +1,20 @@
 "use client";
 
+import { useEffect } from "react";
 import { selectPockemons } from "../../stores/pockemons/slice/pockemonsSelector";
-import {getAllPokemons} from "../../stores/pockemons/slice/pockemonsSlice";
-
 import { useAppDispatch, useAppSelector } from "@/stores/pockemons/hooks";
+import { getAllPockemons } from "@/stores/pockemons/slice/thunk";
+import { Pockemon } from "@/interfaces/pockemon.interface";
 
 export function Pockemons() {
   const dispatch = useAppDispatch();
-  const { data, loading, error } = useAppSelector(selectPockemons);
 
-  
-  dispatch(getAllPokemons())
-  const render = data?.results.map((pockemon) => (
-    <li key={pockemon.name} className="capitalize">
-      <p>{pockemon.name} </p>
-      <p>{pockemon.url} </p>
-    </li> 
-  ));
+  const { data, loading, error } =
+    useAppSelector(selectPockemons);
+
+  useEffect(() => {
+    dispatch(getAllPockemons());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -24,45 +22,15 @@ export function Pockemons() {
 
       {error && <p>{error}</p>}
 
-      {data && render}
+      {data?.results.map((pockemon:Pockemon) => (
+        <li
+          key={pockemon.name}
+          className="capitalize"
+        >
+          <p>{pockemon.name}</p>
+          <p>{pockemon.url}</p>
+        </li>
+      ))}
     </div>
   );
 }
-
-// "use client"
-
-// import { useFetch } from '@/hooks/useFetch';
-// import { getPockemon } from '@/services/pokemon/getPockemon';
-
-// export default function UsersPage() {
-//  const { data, loading, error } = useFetch({
-//     request: () => getPockemon(0, 20),
-//     dependencies: [],
-//   });
-
-//   const pockemonList = data?.data.results;
-
-//   console.log(pockemonList)
-
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
-
-//   if (error) {
-//     return <p>{error}</p>;
-//   }
-
-//   return (
-//     <main className="p-4">
-//       <h1 className="text-xl font-bold text-red-500">Usuários</h1>
-//       <ul>
-//         {pockemonList?.map((pockemon) => (
-//           <li key={pockemon.name} className="capitalize">
-//             <p>{pockemon.name} </p>
-//             <p>{pockemon.url} </p>
-//           </li>
-//         ))}
-//       </ul>
-//     </main>
-//   );
-// }

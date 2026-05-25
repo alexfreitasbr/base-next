@@ -1,34 +1,53 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PockemonData } from '../../../interfaces/pockemon.interface';
+import {
+  createSlice,
+} from '@reduxjs/toolkit'
 
-interface PokemonsState {
-  loading:boolean,
-  error:string | null,
+import { PockemonData } from '../../../interfaces/pockemon.interface'
+import { getAllPockemons } from './thunk'
+
+interface PockemonsState {
+  loading: boolean
+  error: string | null
   pockemonsData: PockemonData | null
 }
 
-const initialState: PokemonsState = {
-  loading:false,
-  error:null,
-  pockemonsData:null
+const initialState: PockemonsState = {
+  loading: false,
+  error: null,
+  pockemonsData: null
 }
 
-const pokemonsSlice = createSlice({
-  name: 'pokemons',
+const pockemonsSlice = createSlice({
+  name: 'pockemons',
+
   initialState,
 
-  reducers: {
-    getAllPokemons: state => {
-      state.loading = true,
-      state.error = null,
-      state.pockemonsData = null
+  reducers: {},
 
-      },
+  extraReducers: builder => {
+    builder
+
+      .addCase(getAllPockemons.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+
+      .addCase(
+        getAllPockemons.fulfilled,
+        (state, action) => {
+          state.loading = false
+          state.pockemonsData = action.payload
+        }
+      )
+
+      .addCase(getAllPockemons.rejected, (state, action) => {
+        state.loading = false
+
+        state.error =
+          action.payload as string
+      })
   }
 })
 
-export const {
-  getAllPokemons
-} = pokemonsSlice.actions
+export default pockemonsSlice.reducer
 
-export default pokemonsSlice.reducer
