@@ -1,12 +1,12 @@
 import { api } from '@/services/axios/api';
-import { PockemonData } from '../interfaces/pockemon.interface';
+import { PockmonData } from '../interfaces/pockmon.interface';
 
 
-export const getPockemon = (
+export const getPockmon = (
   offset = 0,
   limit = 20
 ) => {
-  return api.get<PockemonData>(
-    `/pokemon?offset=${offset}&limit=${limit}`
+  return api.get<PockmonData>(
+    `/pockmon?offset=${offset}&limit=${limit}`
   );
 };
