@@ -1,11 +1,10 @@
 "use client"
 
 import { Pockemon } from '@/services/interfaces/pokemon.interface';
-import { usePockemon  } from '@/services/usePockemon'
+import { usePockemon  } from '@/hooks/useFetch'
 
 export default function UsersPage() {
   const { data, error, loading } = usePockemon();
-
   if (loading) return <p className="p-4">Carregando pokémons...</p>;
   if (error) return <p className="p-4 text-red-500">Erro: {error}</p>;
 

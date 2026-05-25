@@ -5,7 +5,7 @@ export interface Pockemon {
 
 export interface PockemonData  {
     "count": number,
-    "next": "string,
+    "next": string,
     "previous": string,
     "results": Pockemon[]
 }

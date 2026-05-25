@@ -1,5 +1,5 @@
-import { api } from '@/services/axios/api';
-import { PockemonData } from './interfaces/pokemon.interface';
+import { api} from '@/services/axios/intercept';
+import { PockemonData } from '../services/interfaces/pokemon.interface';
 
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,10 @@ interface UseUsersProps {
   limit?: number;
 }
 
-export const usePockemon = ({offset = 0, limit = 20,}: UseUsersProps = {}) => {
+export const usePockemon = ({
+  offset = 0,
+  limit = 20,
+}: UseUsersProps = {}) => {
   const [data, setData] = useState<PockemonData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,13 +19,16 @@ export const usePockemon = ({offset = 0, limit = 20,}: UseUsersProps = {}) => {
   useEffect(() => {
     setLoading(true);
     setError(null);
+
     api
-      .get<PockemonData>(`/pokemon?offset=${offset}&limit=${limit}`)
-      .then((response) => {
-        setData(response.data);
+      .get<PockemonData []>(
+        `/pokemon?offset=${offset}&limit=${limit}`
+      )
+      .then((resp) => {
+        setData(resp);
       })
       .catch((err) => {
-        setError(err.message || 'Erro ao buscar usuários');
+        setError(err.message);
       })
       .finally(() => {
         setLoading(false);
