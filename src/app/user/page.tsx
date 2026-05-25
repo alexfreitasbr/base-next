@@ -1,16 +1,24 @@
-import { getUsers } from '@/services/user-service';
+"use client"
 
-export default async function UsersPage() {
-  // Chamada direta no componente assíncrono
-  const users = await getUsers();
+import { Pockemon } from '@/services/interfaces/pokemon.interface';
+import { usePockemon  } from '@/services/usePockemon'
+
+export default function UsersPage() {
+  const { data, error, loading } = usePockemon();
+
+  if (loading) return <p className="p-4">Carregando pokémons...</p>;
+  if (error) return <p className="p-4 text-red-500">Erro: {error}</p>;
+
+  const pokemons: Pockemon[] = data?.results || [];
 
   return (
     <main className="p-4">
-      <h1 className="text-xl font-bold">Usuários</h1>
+      <h1 className="text-xl font-bold text-red-500">Usuários</h1>
       <ul>
-        {users.map(user => (
-          <li key={user.id} className="p-2 border-b">
-            {user.name} ({user.email})
+        {pokemons.map((pokemon) => (
+          <li key={pokemon.name} className="capitalize"> 
+            <p>{pokemon.name} </p>
+            <p>{pokemon.url} </p>
           </li>
         ))}
       </ul>
