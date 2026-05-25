@@ -1,16 +1,16 @@
-export interface Pockmon {
+export interface Pockemon {
     name: string;
     url: string;
 }
 
-export interface PockmonData  {
+export interface PockemonData  {
     "count": number,
     "next": string,
     "previous": string,
-    "results": Pockmon[]
+    "results": Pockemon[]
 }
 
-export interface PockmonDetail{
+export interface PockemonDetail{
     name:           string;
     order:          number;
     past_abilities: PastAbility[];

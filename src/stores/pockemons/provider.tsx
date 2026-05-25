@@ -3,13 +3,13 @@
 import { Provider } from 'react-redux'
 import { store } from './index'
 
-interface PockmonProviderProps {
+interface PockemonProviderProps {
   children: React.ReactNode
 }
 
-export function PockmonsProvider({
+export function PockemonsProvider({
   children
-}: PockmonProviderProps) {
+}: PockemonProviderProps) {
   return (
     <Provider store={store}>
       {children}
