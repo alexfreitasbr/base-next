@@ -31,10 +31,11 @@ export default function PokemonPage() {
         </ul>
       )}
       <nav>
-        <button onClick={()=>handlePagination(-1)}>
+        <button onClick={()=>handlePagination(-1)} disabled={currentPage === 0}>
           Anterior
         </button>
-        <button onClick={()=>handlePagination(1)}>
+        <span>{currentPage + 1} / {totalPages}  </span>
+        <button onClick={()=>handlePagination(1)} disabled={currentPage === totalPages}>
           proximo
         </button>
       </nav>
