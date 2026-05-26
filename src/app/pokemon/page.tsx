@@ -2,16 +2,18 @@
 
 import { usePokemonStore } from '@/store/usePokemonStore';
 import { useEffect } from 'react';
+import { PokemonList } from '../components/pokemon/list';
+import { Pagination } from '../ui/pagination';
 
 export default function PokemonPage() {
-  const { data, loading, error, fetchPokemons, limit, offset, totalPages, currentPage } = usePokemonStore();
+  const { data, loading, error, fetchPokemons, limit, totalPages, currentPage } = usePokemonStore();
 
   useEffect(() => {
     // Dispara a busca ao montar o componente
     fetchPokemons(5,0);
   }, [fetchPokemons]);
 
-  const handlePagination = (direction:number)=>{
+  const handlerPagination = (direction:number)=>{
     const goTo = (currentPage + direction) * limit;
     fetchPokemons(limit, goTo);
   }
@@ -21,24 +23,12 @@ export default function PokemonPage() {
       <h1>PokeAPI - Zustand Store</h1>
       {loading && <p><strong>Carregando...</strong></p>}
       {error && <p style={{ color: 'red' }}>Erro: {error}</p>}
-      {!loading && !error && (
-        <ul>
-          {data?.results?.map((pokemon) => (
-            <li key={pokemon.name} style={{ textTransform: 'capitalize' }}>
-              {pokemon.name}
-            </li>
-          ))}
-        </ul>
+      {!loading && !error && data?.results && (
+        <PokemonList pokemons={data.results}/>
       )}
-      <nav>
-        <button onClick={()=>handlePagination(-1)} disabled={currentPage === 0}>
-          Anterior
-        </button>
-        <span>{currentPage + 1} / {totalPages}  </span>
-        <button onClick={()=>handlePagination(1)} disabled={currentPage === totalPages}>
-          proximo
-        </button>
-      </nav>
+
+      <Pagination handlerPagination={handlerPagination} currentPage={currentPage} totalPages={totalPages} />
+
     </div>
   );
 }
