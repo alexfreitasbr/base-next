@@ -3,14 +3,18 @@
 import { usePokemonStore } from '@/store/usePokemonStore';
 import { useEffect } from 'react';
 
-
 export default function PokemonPage() {
-  const { data, loading, error, fetchPokemons } = usePokemonStore();
+  const { data, loading, error, fetchPokemons, limit, totalPages, currentPage } = usePokemonStore();
 
   useEffect(() => {
     // Dispara a busca ao montar o componente
-    fetchPokemons();
+    fetchPokemons(100,0);
   }, [fetchPokemons]);
+
+  const handlePagination = (direction: number) => {
+    const goTo = (currentPage + direction) * limit;
+    fetchPokemons(limit, goTo);
+  };
 
   return (
     <div style={{ padding: '20px' }}>
@@ -29,6 +33,16 @@ export default function PokemonPage() {
           ))}
         </ul>
       )}
+      <nav>
+        <button onClick={() => handlePagination(-1)} disabled={currentPage === 0 || !data}>
+          Anterior
+        </button>
+        <span>{currentPage+1} de {totalPages}</span>
+        <button onClick={()=>handlePagination(1)} disabled={currentPage === totalPages || !data}>
+          proximo
+        </button>
+
+      </nav>
     </div>
   );
 }
