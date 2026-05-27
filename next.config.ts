@@ -1,9 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  turbo: {
-    root: '.',
-  },
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

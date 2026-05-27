@@ -1,7 +1,49 @@
 @layer components {
-
-  .btn-primary {
-    @apply bg-blue-500 text-white px-4 py-2 rounded-md;
+  .container-default {
+    @apply container mx-auto px-4;
   }
 
+  .card {
+    @apply bg-surface border border-border rounded-lg shadow-md p-6;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | BUTTONS
+  |--------------------------------------------------------------------------
+  */
+
+  .btn {
+    @apply inline-flex items-center justify-center
+    rounded-md px-4 py-2
+    font-medium transition
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center
+    rounded-md px-4 py-2
+    font-medium transition
+    bg-primary text-white hover:opacity-90;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center
+    rounded-md px-4 py-2
+    font-medium transition
+    bg-secondary text-white hover:opacity-90;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center
+    rounded-md px-4 py-2
+    font-medium transition
+    border border-border bg-transparent;
+  }
+
+  .input {
+    @apply w-full rounded-md border border-border
+    bg-background px-4 py-2
+    outline-none transition
+    focus:ring-2 focus:ring-primary;
+  }
 }

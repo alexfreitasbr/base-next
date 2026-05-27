@@ -1,7 +1,47 @@
 @layer utilities {
-
   .flex-center {
     @apply flex items-center justify-center;
   }
 
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .section-spacing {
+    @apply py-20;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
