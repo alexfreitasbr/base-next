@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BtnAction } from "../btn";
+import { cn } from '@/lib/utilsTailWind'
 
 interface Props {
   handlerPagination: (value: number) => void;
@@ -45,7 +46,10 @@ export const Pagination = ({
         Proximo
         <ChevronRight className="w-5 h-5  transition-transform duration-200 hover:rotate-180" />
       </BtnAction>
-      <button className="btn-primary">
+      <button className={cn(
+  'btn-primary',
+  currentPage === 0 && 'opacity-50'
+)}>
   Save
 </button>
     </nav>
