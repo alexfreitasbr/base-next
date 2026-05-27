@@ -1,27 +1,27 @@
 :root {
   /* Valores dos tokens */
-  --primary-val: #2563eb;
-  --secondary-val: #7c3aed;
-  --background-val: #ffffff;
-  --surface-val: #f8fafc;
-  --border-val: #e2e8f0;
-  --text-primary-val: #0f172a;
-  --text-secondary-val: #475569;
-  --text-muted-val: #94a3b8;
-  --success-val: #16a34a;
-  --warning-val: #f59e0b;
-  --danger-val: #dc2626;
+  --primary: #2563eb;
+  --secondary: #7c3aed;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
 }
 
 .dark {
-  --primary-val: #3b82f6;
-  --secondary-val: #8b5cf6;
-  --background-val: #020617;
-  --surface-val: #0f172a;
-  --border-val: #1e293b;
-  --text-primary-val: #f8fafc;
-  --text-secondary-val: #cbd5e1;
-  --text-muted-val: #64748b;
+  --primary: #3b82f6;
+  --secondary: #8b5cf6;
+  --background: #020617;
+  --surface: #0f172a;
+  --border: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
 }
 
 @theme {
@@ -34,19 +34,19 @@
   --breakpoint-2xl: 1536px;
 
   /* Cores - O prefixo --color- define a utility 'text-primary', 'bg-primary', etc. */
-  --color-primary: var(--primary-val);
-  --color-secondary: var(--secondary-val);
-  --color-background: var(--background-val);
-  --color-surface: var(--surface-val);
-  --color-border: var(--border-val);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
   
-  --color-text-primary: var(--text-primary-val);
-  --color-text-secondary: var(--text-secondary-val);
-  --color-text-muted: var(--text-muted-val);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
 
-  --color-success: var(--success-val);
-  --color-warning: var(--warning-val);
-  --color-danger: var(--danger-val);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
 
   /* Tipografia */
   --font-sans: "Inter", ui-sans-serif, system-ui;

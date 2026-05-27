@@ -5,7 +5,7 @@ interface Props {
 export const Title = ({ children }: Props) => {
   return (
     <h1
-      className="text-xl font-bold text-gray-500"
+      className="text-primary"
       aria-labelledby="main-header"
       test-id="main-header"
     >

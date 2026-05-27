@@ -45,6 +45,9 @@ export const Pagination = ({
         Proximo
         <ChevronRight className="w-5 h-5  transition-transform duration-200 hover:rotate-180" />
       </BtnAction>
+      <button className="btn-primary">
+  Save
+</button>
     </nav>
   );
 };
