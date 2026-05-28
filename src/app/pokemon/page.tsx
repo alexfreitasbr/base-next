@@ -6,18 +6,18 @@ import { Pagination } from '../ui/pagination';
 import { Title } from '../ui/title';
 import { usePokemonStore } from '@/store/usePokemonStore';
 import { modalStore } from "@/store/modalStore";
-import { ErrorModal } from '../ui/modais/errorModal';
-
-
+import { ErrorModal } from '../ui/modals/errorModal';
 
 export default function PokemonPage() {
   const { data, loading, error, fetchPokemons, limit, totalPages, currentPage } = usePokemonStore();
+   const openModal = modalStore((state) => state.openModal);
+
+ 
   useEffect(() => {
     // Dispara a busca ao montar o componente
     fetchPokemons(105,0);
   }, [fetchPokemons]);
 
-  const { setModal } = modalStore();
 
   const handlerPagination = (direction:number)=>{
     const goTo = (currentPage + direction) * limit;
@@ -34,7 +34,36 @@ export default function PokemonPage() {
       )}
 
       <Pagination handlerPagination={handlerPagination} currentPage={currentPage} totalPages={totalPages} />
-      <button onClick={() => setModal(<ErrorModal/>)}>Abrir Modal</button>
+      
+      
+
+ <button
+      onClick={() =>
+        openModal(
+          ErrorModal,
+          {
+            title: "Confirmar cancelamento",
+
+            description:
+              "Você tem certeza que deseja cancelar sua assinatura?",
+
+              onConfirm: () => {
+                console.log("confirmado");
+              },
+          },
+          {
+            ariaLabelledby: "modal-title",
+
+            ariaDescribedby: "modal-desc",
+          }
+        )
+      }
+    >
+      Abrir Modal
+    </button>
+
+
+      
     </section>
   );
 }
