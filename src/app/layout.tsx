@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { RootModal } from "./ui/modals/rootModal";
+import { RootModal } from "../components/ui/modals/rootModal";
+import { Header } from "@/components/layout/header";
+import { StarIcon } from "lucide-react";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,16 +26,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased `}
     >
       <body className="min-h-full flex flex-col p-4">
-       
-        <header>
-          header
-        </header>
+        <Header>
+          <Link href="/">
+            <StarIcon className="w-13 h-13  transition-transform duration-200 hover:rotate-[-15deg] cursor-pointer" />
+          </Link>
+          <h1>Star</h1> 
+        </Header>
+          
         <main className="flex flex-1 flex-col">
           {children}  
         </main>

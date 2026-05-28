@@ -1,5 +1,5 @@
 import { Pokemon } from "@/interfaces/pokemon"
-import { Item } from "@/app/components/pokemon/item"
+import { Item } from "../item"
 
 interface Props{
     pokemons: Pokemon[]

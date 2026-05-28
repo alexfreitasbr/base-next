@@ -1,4 +1,4 @@
-import { BtnAction } from "@/app/ui/btn";
+import { BtnAction } from "@/components/ui/btn";
 import { Pokemon } from "@/interfaces/pokemon";
 import {  Eye } from "lucide-react";
 

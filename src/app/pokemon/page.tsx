@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { PokemonList } from "../components/pokemon/list";
-import { Pagination } from "../ui/pagination";
-import { Title } from "../ui/title";
+import { Pagination } from "../../components/ui/pagination";
+import { Title } from "../../components/ui/title";
 import { usePokemonStore } from "@/store/usePokemonStore";
 import { modalStore } from "@/store/modalStore";
-import { Loading } from "../ui/loading";
-import { Warning } from "../ui/warning";
+import { Loading } from "../../components/ui/loading";
+import { Warning } from "../../components/ui/warning";
+import { PokemonList } from "@/components/shared/list";
 
 export default function PokemonPage() {
   const {
