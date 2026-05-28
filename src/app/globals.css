@@ -16,5 +16,59 @@ html {
 
 body {
   min-height: 100vh;
+  display: grid;
+  grid-template: 16px 1fr 16px / 16px 1fr 16px;
+  grid-template-areas:
+    "a a a"
+    ". b ."
+    "c c c";
+  padding: 0;
+
+  @media (min-width: 768px) {
+    grid-template: 20px 1fr 20px / 20px 1fr 20px;
+    grid-template-areas:
+      "a a a"
+      ". b ."
+      "c c c";
+  }
+
+  @media (min-width: 1024px) {
+    grid-template: 32px 1fr 32px / 32px 1fr 32px;
+    grid-template-areas:
+      "a a a"
+      ". b ."
+      "c c c";
+  }
+}
+
+body > header {
+  grid-area: a;
+  background-color: var(--color-primary);
+}
+
+body > main {
+  grid-area: b;
+}
+
+body > footer {
+  grid-area: c;
+  background-color: green;
+}
+
+body > header,
+body > footer {
+  padding-inline: 16px;
+  padding-block: 16px;
+
+  @media (min-width: 768px) {
+    padding-inline: 20px;
+    padding-block: 20px;
+}
+
+@media (min-width: 1024px) {
+    padding-inline: 32px;
+    padding-block: 32px;
+}
+
 }
 

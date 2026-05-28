@@ -23,7 +23,7 @@ export default function PokemonPage() {
 
   useEffect(() => {
     // Dispara a busca ao montar o componente
-    fetchPokemons(120, 0);
+    fetchPokemons(12, 0);
   }, [fetchPokemons]);
 
   const handlerPagination = (direction: number) => {
