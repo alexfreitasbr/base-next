@@ -8,6 +8,7 @@ import { modalStore } from "@/store/modalStore";
 import { Loading } from "../../components/ui/loading";
 import { Warning } from "../../components/ui/warning";
 import { PokemonList } from "@/components/shared/list";
+import { SearchBar } from "@/components/ui/searchBar";
 
 export default function PokemonPage() {
   const {
@@ -35,6 +36,7 @@ export default function PokemonPage() {
     <section className="flex flex-1 flex-col  gap-4 py-4 bk">
       <header>
         <Title>PokeAPI - Zustand Store</Title>
+        <SearchBar action={(query) => console.log("---->",query)} />
       </header>
       <main className="flex  flex-1 flex-col gap-1 " aria-label="list" test-id="loading">
         {loading && <Loading />}
