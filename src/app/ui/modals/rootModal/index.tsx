@@ -2,7 +2,6 @@
 
 import { modalStore } from "@/store/modalStore";
 import { CircleX } from "lucide-react";
-
 export const RootModal = () => {
   const {
     isOpen,
@@ -19,12 +18,12 @@ export const RootModal = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4  "     
       onClick={closeModal}
     >
       <dialog
         open
-        className="relative w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+        className="relative shrink rounded-lg bg-white p-6 shadow-xl "
         role="dialog"
         aria-modal="true"
         aria-labelledby={ariaLabelledby}
@@ -43,3 +42,5 @@ export const RootModal = () => {
     </div>
   );
 };
+
+
