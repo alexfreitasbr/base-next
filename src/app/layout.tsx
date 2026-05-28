@@ -34,8 +34,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col p-4">
         <Header>
-          <Link href="/">
-            <StarIcon className="w-13 h-13  transition-transform duration-200 hover:rotate-[-15deg] cursor-pointer" />
+          <Link href="/" aria-label="Go to home">
+            <StarIcon className="w-13 h-13  transition-transform duration-200 hover:rotate-[-15deg] cursor-pointer" aria-label="Logo"/>
           </Link>
           <h1>Star</h1> 
         </Header>
