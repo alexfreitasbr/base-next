@@ -4,12 +4,12 @@ interface Props {
 
 export const Title = ({ children }: Props) => {
   return (
-    <h1
+    <h2
       className="text-primary"
       aria-labelledby="main-header"
       test-id="main-header"
     >
       {children}
-    </h1>
+    </h2>
   );
 };

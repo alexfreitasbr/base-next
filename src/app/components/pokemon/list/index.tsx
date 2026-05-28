@@ -7,7 +7,7 @@ interface Props{
 
 export const PokemonList = ({pokemons}:Props) =>    {
     return (
-        <ul className="flex flex-1 flex-col gap-1 " aria-label="list" test-id="list">
+        <ul className="flex  flex-1 flex-col gap-1 " aria-label="list" test-id="list">
             {pokemons?.map((pokemon) => (
                 <Item key={pokemon.name} pokemon={pokemon} />
             ))}

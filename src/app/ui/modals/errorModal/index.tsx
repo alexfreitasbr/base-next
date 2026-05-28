@@ -1,14 +1,22 @@
+import { ptBR } from "@/locales/pt-BR";
+
 interface ErrorModalProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  onConfirmLabel?: string;
+  onCancelLabel?: string;
 
   onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
 export const ErrorModal = ({
-  title,
+  title=ptBR.warnings.error,
   description,
   onConfirm,
+  onCancel,
+  onConfirmLabel=ptBR.buttons.ok,
+  onCancelLabel=ptBR.buttons.cancel
 }: ErrorModalProps) => {
   return (
     <div>
@@ -22,25 +30,27 @@ export const ErrorModal = ({
       </header>
 
       <main>
-        <p
+        {description && <p
           id="modal-desc"
           className="text-zinc-600"
         >
           {description}
-        </p>
+        </p>}
       </main>
 
-      <footer className="mt-6 flex justify-end gap-2">
-        <button className="rounded bg-zinc-200 px-4 py-2">
-          Voltar
-        </button>
+      <footer className="mt-6 flex justify-center gap-2">
+        {onCancel &&<button className="rounded bg-zinc-200 px-4 py-2" 
+        onClick={onCancel}>
+          {onCancelLabel}
+        </button>}
 
-        <button
+        {onConfirm && <button
           onClick={onConfirm}
           className="rounded bg-red-500 px-4 py-2 text-white"
         >
-          Confirmar
+          {onConfirmLabel}
         </button>
+        }
       </footer>
     </div>
   );

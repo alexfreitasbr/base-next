@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BtnAction } from "../btn";
-import { cn } from '@/lib/utilsTailWind'
+import { ptBR } from "@/locales/pt-BR";
 
 interface Props {
   handlerPagination: (value: number) => void;
@@ -27,7 +27,7 @@ export const Pagination = ({
         test-id="prevPageBtn"
       >
         <ChevronLeft className="w-5 h-5 transition-transform duration-200 hover:rotate-180" />
-          Anterior
+          {ptBR.buttons.previous}
         </BtnAction>
       <p aria-label="Current page" test-id="currentPage">
         {currentPage + 1}
@@ -43,15 +43,15 @@ export const Pagination = ({
         aria-disabled={currentPage === 0}
         test-id="nextPageBtn"
       >
-        Proximo
+        {ptBR.buttons.next}
         <ChevronRight className="w-5 h-5  transition-transform duration-200 hover:rotate-180" />
       </BtnAction>
-      <button className={cn(
+      {/* <button className={cn(
   'btn-primary',
   currentPage === 0 && 'opacity-50'
 )}>
   Save
-</button>
+</button> */}
     </nav>
   );
 };
