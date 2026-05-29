@@ -1,75 +1,156 @@
-import { PokemonResponse, Pokemon } from '@/interfaces/pokemon';
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+
+import {
+  devtools,
+  persist,
+} from 'zustand/middleware';
+
+import { pokemonService } from '@/service/pokemon.service'
+
+import {
+  Pokemon,
+  PokemonResponse,
+} from '@/interfaces/pokemon';
 
 interface PokemonState {
   data: PokemonResponse | null;
+
+  pokemon: Pokemon | null;
+
   loading: boolean;
+
   error: string | null;
-  limit:number;
-  offset:number;
-  totalPages:number;
-  currentPage:number;
-  fetchPokemons: (  limit?:number,offset?:number) => Promise<void>;
-  fetchPokemon: (  name:string) => Promise<void>;
-  pokemon:Pokemon | null;
+
+  limit: number;
+
+  offset: number;
+
+  totalPages: number;
+
+  currentPage: number;
+
+  fetchPokemons: (
+    limit?: number,
+    offset?: number
+  ) => Promise<void>;
+
+  fetchPokemon: (
+    name: string
+  ) => Promise<void>;
+
+  updateCurrentPage: (
+    currentPage: number
+  ) => void;
 }
 
-type Action = {
-  updateCurrentPage: (currentPage:number) => void
-}
+export const usePokemonStore =
+  create<PokemonState>()(
+    devtools(
+      persist(
+        (set) => ({
+          data: null,
 
-export const usePokemonStore = create<PokemonState & Action>()(
-  devtools(
-    persist(
-      (set) => ({
-        data: null,
-        loading: false,
-        error: null,
-        limit:10,
-        offset:0,
-        totalPages:0,
-        currentPage:0,
-        pokemon: null,
+          pokemon: null,
 
-        // Ação assíncrona (similar ao Thunk)
-        fetchPokemons: async (limit:number=20,offset:number=0) => {
-          set({ loading: true, error: null, limit, offset}, false, "pokemons/fetch_start");
-          try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
-            
-            if (!response.ok) {
-              throw new Error('Falha ao carregar os dados da PokeAPI');
+          loading: false,
+
+          error: null,
+
+          limit: 20,
+
+          offset: 0,
+
+          totalPages: 0,
+
+          currentPage: 0,
+
+          fetchPokemons: async (
+            limit = 20,
+            offset = 0
+          ) => {
+            set({
+              loading: true,
+
+              error: null,
+            });
+
+            try {
+              const data =
+                await pokemonService.getAll(
+                  limit,
+                  offset
+                );
+
+              set({
+                data,
+
+                loading: false,
+
+                limit,
+
+                offset,
+
+                totalPages: Math.ceil(
+                  data.count / limit
+                ),
+
+                currentPage: offset / limit,
+              });
+            } catch (error) {
+              set({
+                loading: false,
+
+                error:
+                  error instanceof Error
+                    ? error.message
+                    : 'Erro desconhecido',
+              });
             }
+          },
 
-            const data: PokemonResponse = await response.json();
-            set({ loading: false, data, totalPages:Math.ceil(data.count/limit), currentPage:offset/limit}, false, 'pokemon/fetch_success');
-          } catch (err: any) {
-            set({ error: err.message, loading: false }, false, 'pokemons/fetch_error');
-          }
-        },
+          fetchPokemon: async (
+            name: string
+          ) => {
+            set({
+              loading: true,
 
-        // Ação assíncrona (similar ao Thunk)
-        fetchPokemon: async (name:string) => {
-          set({ loading: true, error: null}, false, "pokemon/fetch_start");
-          try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-            
-            if (!response.ok) {
-              throw new Error('Falha ao carregar os dados da PokeAPI');
+              error: null,
+            });
+
+            try {
+              const pokemon =
+                await pokemonService.getByName(
+                  name
+                );
+
+              set({
+                pokemon,
+
+                loading: false,
+              });
+            } catch (error) {
+              set({
+                loading: false,
+
+                error:
+                  error instanceof Error
+                    ? error.message
+                    : 'Erro desconhecido',
+              });
             }
+          },
 
-            const pokemon: Pokemon = await response.json();
-            set({ loading: false, pokemon}, false, 'pokemon/fetch_success');
-          } catch (err: any) {
-            set({ error: err.message, loading: false }, false, 'pokemon/fetch_error');
-          }
-        },
+          updateCurrentPage: (
+            currentPage
+          ) =>
+            set({
+              currentPage,
+            }),
+        }),
 
-        updateCurrentPage: (currentPage: number) => set({ currentPage }, false, 'pokemon/update_page'),
-      }),
-      { name: 'pokemon-storage' } // Nome da chave no localStorage
+        {
+          name: 'pokemon-storage',
+        }
+      )
     )
-  )
-
-);
+  );
