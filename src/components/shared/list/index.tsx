@@ -1,11 +1,10 @@
-import { Pokemons } from "@/interfaces/pokemon"
 import { Item } from "../item"
-
-interface Props{
-    pokemons: Pokemons[]
+import { PokemonCard } from "@/modules/pokemon/pokemon.types"
+interface ListProps{
+    pokemons: PokemonCard[]
 }
 
-export const PokemonList = ({pokemons}:Props) =>    {
+export const List = ({pokemons}:ListProps) =>    {
     return (
         <ul className="flex  flex-1 flex-col gap-1 " aria-label="list" test-id="list">
             {pokemons?.map((pokemon) => (

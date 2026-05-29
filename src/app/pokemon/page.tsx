@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import { Pagination } from "../../components/ui/pagination";
 import { Title } from "../../components/ui/title";
-import { usePokemonStore } from "@/store/usePokemonStore";
+import { usePokemonStore } from "@/modules/pokemon/pokemon.store"
 import { modalStore } from "@/store/modalStore";
 import { Loading } from "../../components/ui/loading";
 import { Warning } from "../../components/ui/warning";
-import { PokemonList } from "@/components/shared/list";
+import { List } from "@/components/shared/list";
 import { SearchBar } from "@/components/ui/searchBar";
 
 export default function PokemonPage() {
@@ -42,8 +42,8 @@ export default function PokemonPage() {
       <main className="flex  flex-1 flex-col gap-1 " aria-label="list" test-id="loading">
         {loading && <Loading />}
         {error && <Warning title="Erro a acessar a API" description="Try later"/>}
-        {!loading && !error && data?.results && (
-          <PokemonList pokemons={data.results} />
+        {!loading && !error && data && (
+          <List pokemons={data.pokemons} />
         )}
       </main>
       <footer>
