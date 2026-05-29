@@ -1,5 +1,6 @@
+import { useDebounce } from "@/hooks/debounce";
 import { CircleX, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback} from "react";
 
 interface SearchBarProps {
   action: (url: string) => void;
@@ -10,20 +11,18 @@ export const SearchBar = ({ action }: SearchBarProps) => {
   // O estado agora controla o valor do input em tempo real
   const [searchTerm, setSearchTerm] = useState('');
   
-
-  // 1. Função que lida com a busca real (ex: chamada de API)
-  const handleSearch = (query:string) => {
+  const handleSearch = useCallback((query:string) => {
     if (!query.trim()) return;
     action(query)
-  };
+  }, [action]);
 
-useEffect(() => {
-  const debounceTimer = setTimeout(() => {
+useDebounce({
+  func: () => {
     handleSearch(searchTerm.trim());
-  }, 500);
-
-  return () => clearTimeout(debounceTimer);
-}, [searchTerm]);
+  },
+  delay: 600,
+  dependences: [searchTerm], // O TS vai validar se isso é um array válido
+});
 
   return (
     <form className="flex gap-2" role="search">
