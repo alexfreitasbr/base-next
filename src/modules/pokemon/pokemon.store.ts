@@ -14,6 +14,7 @@ interface PokemonState {
   fetchPokemons: (limit?: number, offset?: number) => Promise<void>;
   fetchPokemon: (name: string) => Promise<void>;
   updateCurrentPage: (currentPage: number) => void;
+  resetPokemon: () => void;
 }
 export const usePokemonStore = create<PokemonState>()(
   devtools(
@@ -27,10 +28,13 @@ export const usePokemonStore = create<PokemonState>()(
         offset: 0,
         totalPages: 0,
         currentPage: 0,
+
         fetchPokemons: async (limit = 20, offset = 0) => {
-          set({ loading: true, error: null });
+          set({ loading: true, error: null, pokemon: null });
+
           try {
             const data = await pokemonService.getAll(limit, offset);
+
             set({
               data,
               loading: false,
@@ -43,26 +47,46 @@ export const usePokemonStore = create<PokemonState>()(
             set({
               loading: false,
               error:
-                error instanceof Error ? error.message : "Erro desconhecido",
+                error instanceof Error
+                  ? error.message
+                  : "Erro desconhecido",
             });
           }
         },
+
         fetchPokemon: async (name: string) => {
           set({ loading: true, error: null });
+
           try {
             const pokemon = await pokemonService.getByName(name);
+
             set({ pokemon, loading: false });
           } catch (error) {
             set({
               loading: false,
               error:
-                error instanceof Error ? error.message : "Erro desconhecido",
+                error instanceof Error
+                  ? error.message
+                  : "Erro desconhecido",
             });
           }
         },
+
         updateCurrentPage: (currentPage) => set({ currentPage }),
+
+        resetPokemon: () => set({ pokemon: null }),
       }),
-      { name: "pokemon-storage" },
+      {
+        name: "pokemon-storage",
+
+        partialize: (state) => ({
+          data: state.data,
+          limit: state.limit,
+          offset: state.offset,
+          totalPages: state.totalPages,
+          currentPage: state.currentPage,
+        }),
+      },
     ),
   ),
 );

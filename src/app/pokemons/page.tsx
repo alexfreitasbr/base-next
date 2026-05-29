@@ -9,6 +9,8 @@ import { Loading } from "../../components/ui/loading";
 import { Warning } from "../../components/ui/warning";
 import { List } from "@/components/shared/list";
 import { SearchBar } from "@/components/ui/searchBar";
+import { useRouter } from 'next/navigation';
+import { useDebounce } from "@/hooks/debounce";
 
 export default function PokemonPage() {
   const {
@@ -20,18 +22,36 @@ export default function PokemonPage() {
     limit,
     totalPages,
     currentPage,
+    pokemon,
+    resetPokemon
   } = usePokemonStore();
-  const openModal = modalStore((state) => state.openModal);
+
+  
+
+
+  // const openModal = modalStore((state) => state.openModal);
 
   useEffect(() => {
     // Dispara a busca ao montar o componente
+    resetPokemon();
     fetchPokemons(12, 0);
-  }, [fetchPokemons]);
-
+  }, [fetchPokemons,resetPokemon]);
+  
   const handlerPagination = (direction: number) => {
     const goTo = (currentPage + direction) * limit;
     fetchPokemons(limit, goTo);
   };
+
+  const router = useRouter();
+
+  useDebounce({
+    func: () => {
+      if (pokemon === null) return
+      router.push('/pokemon-details');
+    },
+    delay: 5,
+    dependences: [pokemon, router], 
+  });
 
   return (
     <section className="flex flex-1 flex-col  gap-4 py-4 bk">
