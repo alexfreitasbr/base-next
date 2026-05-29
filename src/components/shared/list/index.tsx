@@ -1,8 +1,8 @@
-import { Pokemon } from "@/interfaces/pokemon"
+import { Pokemons } from "@/interfaces/pokemon"
 import { Item } from "../item"
 
 interface Props{
-    pokemons: Pokemon[]
+    pokemons: Pokemons[]
 }
 
 export const PokemonList = ({pokemons}:Props) =>    {

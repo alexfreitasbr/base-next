@@ -1,9 +1,9 @@
 import { BtnAction } from "@/components/ui/btn";
-import { Pokemon } from "@/interfaces/pokemon";
+import { Pokemons } from "@/interfaces/pokemon";
 import {  Eye } from "lucide-react";
 
 interface Props {
-  pokemon: Pokemon;
+  pokemon: Pokemons;
 }
 
 export const Item = ({ pokemon }: Props) => {
